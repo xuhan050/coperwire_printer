@@ -33,16 +33,15 @@
 
 #ifndef CONFIGURATION_LCD // Get the LCD defines which are needed first
 
-  #define PIN_EXISTS(PN) (defined(PN##_PIN) && PN##_PIN >= 0)
-
+  #define PIN_EXISTS(PN) (defined(PN##_PIN) && PN##_PIN >= 0) // if  PN_PIN is defined. return 1
   #define CONFIGURATION_LCD
 
-  #if ENABLED(MAKRPANEL)
+  #if ENABLED(MAKRPANEL) 
     #define DOGLCD
     #define DEFAULT_LCD_CONTRAST 17
     #define ULTIPANEL
     #define NEWPANEL
-  #endif
+  #endif //markpanel(a brand of LCD for 3D printer) is not defined
 
   #if ENABLED(miniVIKI) || ENABLED(VIKI2) || ENABLED(ELB_FULL_GRAPHIC_CONTROLLER)
     #define ULTRA_LCD  //general LCD support, also 16x2
@@ -60,17 +59,17 @@
 
     #define ENCODER_PULSES_PER_STEP 4
     #define ENCODER_STEPS_PER_MENU_ITEM 1
-  #endif
+  #endif// none of them(mniVIKI VIKI2 ELB_FULL_GRAPHIC_CONTROLLER) is  defined. all of them are LCD controll panel
 
   // Generic support for SSD1306 OLED based LCDs.
   #if ENABLED(U8GLIB_SSD1306)
     #define ULTRA_LCD  //general LCD support, also 16x2
     #define DOGLCD  // Support for I2C LCD 128x64 (Controller SSD1306 graphic Display Family)
-  #endif
+  #endif//sorry it does not support for U8GLIB_SSD1306
 
   #if ENABLED(PANEL_ONE)
     #define ULTIMAKERCONTROLLER
-  #endif
+  #endif// either does not support for panel_one
 
   #if ENABLED(BQ_LCD_SMART_CONTROLLER)
     #define REPRAP_DISCOUNT_FULL_GRAPHIC_SMART_CONTROLLER
@@ -86,40 +85,40 @@
     #ifndef LONG_FILENAME_HOST_SUPPORT
       #define LONG_FILENAME_HOST_SUPPORT
     #endif
-  #endif
+  #endif// i dont know whats this. anyway we dont support it
 
-  #if ENABLED(REPRAP_DISCOUNT_FULL_GRAPHIC_SMART_CONTROLLER)
-    #define DOGLCD
-    #define U8GLIB_ST7920
-    #define REPRAP_DISCOUNT_SMART_CONTROLLER
-  #endif
-
+  #if ENABLED(REPRAP_DISCOUNT_FULL_GRAPHIC_SMART_CONTROLLER)  // it contains all the function of LCDs below
+    #define DOGLCD            // allows you to use dog_M_LCD, a low power LCD.
+    #define U8GLIB_ST7920    // allows you to use ST7920 LCD with 128*64
+    #define REPRAP_DISCOUNT_SMART_CONTROLLER   //it has a SD reader but only 20 characters*4lines 
+  #endif// we DO support it! 
+  
   #if ENABLED(ULTIMAKERCONTROLLER) || ENABLED(REPRAP_DISCOUNT_SMART_CONTROLLER) || ENABLED(G3D_PANEL) || ENABLED(RIGIDBOT_PANEL)
     #define ULTIPANEL
-    #define NEWPANEL
-  #endif
+    #define NEWPANEL		//two kinds of LCD pannel
+  #endif// REPRAP_DISCOUNT_SMART_CONTROLLER which we support contains the functions of two LCDs above.
 
   #if ENABLED(REPRAPWORLD_KEYPAD)
     #define ULTIPANEL
     #define NEWPANEL
-  #endif
+  #endif// not defined
 
   #if ENABLED(RA_CONTROL_PANEL)
     #define LCD_I2C_TYPE_PCA8574
     #define LCD_I2C_ADDRESS 0x27   // I2C Address of the port expander
     #define ULTIPANEL
     #define NEWPANEL
-  #endif
+  #endif// not defined
 
   #if ENABLED(MINIPANEL)
     #define DOGLCD
     #define ULTIPANEL
     #define NEWPANEL
     #define DEFAULT_LCD_CONTRAST 17
-  #endif
+  #endif// not defined
 
   /**
-   * I2C PANELS
+   * I2C PANELS 	//LCDs based on I2C, we don't use them
    */
 
   #if ENABLED(LCD_I2C_SAINSMART_YWROBOT)
@@ -129,7 +128,7 @@
     #define LCD_I2C_ADDRESS 0x27   // I2C Address of the port expander
     #define ULTIPANEL
     #define NEWPANEL
-  #endif
+  #endif// not defined
 
   // PANELOLU2 LCD with status LEDs, separate encoder and click inputs
   #if ENABLED(LCD_I2C_PANELOLU2)
@@ -152,7 +151,7 @@
 
     #define ULTIPANEL
     #define NEWPANEL
-  #endif
+  #endif// not define
 
   // Panucatt VIKI LCD with status LEDs, integrated click & L/R/U/P buttons, separate encoder inputs
   #if ENABLED(LCD_I2C_VIKI)
@@ -165,7 +164,7 @@
     #define LCD_USE_I2C_BUZZER //comment out to disable buzzer on LCD (requires LiquidTWI2 v1.2.3 or later)
     #define ULTIPANEL
     #define NEWPANEL
-  #endif
+  #endif//not defined
 
   // Shift register panels
   // ---------------------
@@ -173,7 +172,7 @@
   // https://bitbucket.org/fmalpartida/new-liquidcrystal/wiki/schematics#!shiftregister-connection
 
   #if ENABLED(SAV_3DLCD)
-    #define SR_LCD_2W_NL    // Non latching 2 wire shift register
+    #define SR_LCD_2W_NL    // Non latching 2 wire shift register, not used
     #define ULTIPANEL
     #define NEWPANEL
   #endif
@@ -185,7 +184,7 @@
     #ifndef LCD_HEIGHT
       #define LCD_HEIGHT 5
     #endif
-  #endif
+  #endif//do defined
 
   #if ENABLED(ULTIPANEL)
     #define NEWPANEL  //enable this if you have a click-encoder panel
@@ -195,7 +194,8 @@
     #endif
     #ifndef LCD_HEIGHT
       #define LCD_HEIGHT 4
-    #endif
+    #endif// set width and height for ultipanel. we have define them for DOGLCD, not defined now
+    
   #else //no panel but just LCD
     #if ENABLED(ULTRA_LCD)
       #ifndef LCD_WIDTH
@@ -204,8 +204,9 @@
       #ifndef LCD_HEIGHT
         #define LCD_HEIGHT 2
       #endif
-    #endif
+    #endif // this is used to adjust width and height of LCD when there is no PANEL. We have panel, not defined.
   #endif
+  // anyay the number of lines is set to (22, 5), if the biggest is satisfied, the smaller ones are also done.
 
   #if ENABLED(DOGLCD)
     /* Custom characters defined in font font_6x10_marlin_symbols */
