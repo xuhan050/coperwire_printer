@@ -650,7 +650,7 @@ void manage_heater() {
   #if ENABLED(HEATER_0_USES_MAX6675)
     float ct = current_temperature[0];
     if (ct > min(HEATER_0_MAXTEMP, 1023)) max_temp_error(0);
-    if (ct < max(HEATER_0_MINTEMP, 0.01)) min_temp_error(0);
+    if (ct < max(HEATER_0_MINTEMP, 0.01)) {min_temp_error(0); MYSERIAL.println('1');}
   #endif
 
   #if ENABLED(THERMAL_PROTECTION_HOTENDS) || DISABLED(PIDTEMPBED) || HAS_AUTO_FAN
@@ -1684,8 +1684,8 @@ ISR(TIMER0_COMPB_vect) {
         #define GE0 >=
       #endif
       if (current_temperature_raw[0] GE0 maxttemp_raw[0]) max_temp_error(0);
-      if (minttemp_raw[0] GE0 current_temperature_raw[0]) min_temp_error(0);
-    #endif
+      if (minttemp_raw[0] GE0 current_temperature_raw[0]) {min_temp_error(0); MYSERIAL.println('2');}
+    #endif// HANXU: here is the error.
 
     #if HAS_TEMP_1 && EXTRUDERS > 1
       #if HEATER_1_RAW_LO_TEMP > HEATER_1_RAW_HI_TEMP
@@ -1694,7 +1694,7 @@ ISR(TIMER0_COMPB_vect) {
         #define GE1 >=
       #endif
       if (current_temperature_raw[1] GE1 maxttemp_raw[1]) max_temp_error(1);
-      if (minttemp_raw[1] GE1 current_temperature_raw[1]) min_temp_error(1);
+      if (minttemp_raw[1] GE1 current_temperature_raw[1]) {min_temp_error(1);MYSERIAL.println('3');}
     #endif // TEMP_SENSOR_1
 
     #if HAS_TEMP_2 && EXTRUDERS > 2
@@ -1704,7 +1704,7 @@ ISR(TIMER0_COMPB_vect) {
         #define GE2 >=
       #endif
       if (current_temperature_raw[2] GE2 maxttemp_raw[2]) max_temp_error(2);
-      if (minttemp_raw[2] GE2 current_temperature_raw[2]) min_temp_error(2);
+      if (minttemp_raw[2] GE2 current_temperature_raw[2]) {min_temp_error(2);MYSERIAL.println('4');}
     #endif // TEMP_SENSOR_2
 
     #if HAS_TEMP_3 && EXTRUDERS > 3
@@ -1714,7 +1714,7 @@ ISR(TIMER0_COMPB_vect) {
         #define GE3 >=
       #endif
       if (current_temperature_raw[3] GE3 maxttemp_raw[3]) max_temp_error(3);
-      if (minttemp_raw[3] GE3 current_temperature_raw[3]) min_temp_error(3);
+      if (minttemp_raw[3] GE3 current_temperature_raw[3]) {min_temp_error(3);MYSERIAL.println('5');}
     #endif // TEMP_SENSOR_3
 
     #if HAS_TEMP_BED
