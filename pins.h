@@ -56,7 +56,7 @@
 #elif MB(RAMPS_13_EEB) || MB(RAMPS_13_EFF) || MB(RAMPS_13_EEF) || MB(RAMPS_13_SF)
   #include "pins_RAMPS_13.h"
 #elif MB(RAMPS_14_EFB)
-  #include "pins_RAMPS_14_EFB.h"
+  #include "pins_RAMPS_14_EFB.h"      // this is exactly what we use now
 #elif MB(RAMPS_14_EEB) || MB(RAMPS_14_EFF) || MB(RAMPS_14_EEF) || MB(RAMPS_14_SF)
   #include "pins_RAMPS_14.h"
 #elif MB(GEN6)

@@ -43,7 +43,9 @@
 
 #if ENABLED(BED_LIMIT_SWITCHING)
   #define BED_HYSTERESIS 2 //only disable heating if T>target+BED_HYSTERESIS and enable heating if T>target-BED_HYSTERESIS
-#endif
+#endif// we don't use pid control in temp. either the bed hysteresis.
+
+
 #define BED_CHECK_INTERVAL 5000 //ms between checks in bang-bang control
 
 /**

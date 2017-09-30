@@ -238,7 +238,7 @@
   #endif
 
   /**
-   * Default LCD contrast for dogm-like LCD displays
+   * Default LCD contrast for dogm-like LCD displays.
    */
   #if ENABLED(DOGLCD) && DISABLED(DEFAULT_LCD_CONTRAST)
     #define DEFAULT_LCD_CONTRAST 32
@@ -252,11 +252,11 @@
     #if ENABLED(U8GLIB_SSD1306)
       #undef HAS_LCD_CONTRAST
     #endif
-  #endif
+  #endif// it is used to set the contrast of DOGLCD without U8GLIB_ST7920, it is not used. 
 
 #else // CONFIGURATION_LCD
 
-  #define CONDITIONALS_H
+  #define CONDITIONALS_H  // I don't know whyyyyyyyyyyyyyyyyyyyyy it is written like this.
 
   #include "pins.h"
 
@@ -264,7 +264,7 @@
     #define HardwareSerial_h // trick to disable the standard HWserial
   #endif
 
-  #include "Arduino.h"
+  #include "Arduino.h"		//include arduino basic buld-in function.
 
   /**
    * ENDSTOPPULLUPS
@@ -274,7 +274,7 @@
       #define ENDSTOPPULLUP_XMAX
       #define ENDSTOPPULLUP_YMAX
       #define ENDSTOPPULLUP_ZMAX
-    #endif
+    #endif 
     #if DISABLED(DISABLE_MIN_ENDSTOPS)
       #define ENDSTOPPULLUP_XMIN
       #define ENDSTOPPULLUP_YMIN
@@ -283,7 +283,7 @@
     #if DISABLED(DISABLE_Z_MIN_PROBE_ENDSTOP)
       #define ENDSTOPPULLUP_ZMIN_PROBE
     #endif
-  #endif
+  #endif // define the end stop pull up
 
   /**
    * Axis lengths
@@ -301,7 +301,7 @@
   #elif ENABLED(COREXZ)
     #define CORE_AXIS_2 C_AXIS
     #define CORE_AXIS_3 Y_AXIS
-  #endif
+  #endif // we don't use COREXY, but it is interesting
 
   /**
    * SCARA
@@ -318,7 +318,7 @@
     #define X_HOME_POS MANUAL_X_HOME_POS
     #define Y_HOME_POS MANUAL_Y_HOME_POS
     #define Z_HOME_POS MANUAL_Z_HOME_POS
-  #else //!MANUAL_HOME_POSITIONS â€“ Use home switch positions based on homing direction and travel limits
+  #else //MANUAL HOME POSITIONS is NOT used£¬ Use home switch positions based on homing direction and travel limits
     #if ENABLED(BED_CENTER_AT_0_0)
       #define X_HOME_POS (X_MAX_LENGTH) * (X_HOME_DIR) * 0.5
       #define Y_HOME_POS (Y_MAX_LENGTH) * (Y_HOME_DIR) * 0.5
@@ -341,13 +341,15 @@
   #endif
 
   #define SERVO_LEVELING (defined(AUTO_BED_LEVELING_FEATURE) && defined(Z_ENDSTOP_SERVO_NR))
-
+  //we don't use auto bed leveling
+  
   /**
    * Sled Options
    */
   #if ENABLED(Z_PROBE_SLED)
     #define Z_SAFE_HOMING
   #endif
+  //we don't use Z_probe not mention the sled.
 
   /**
    * Avoid double-negatives for enabling features
@@ -355,6 +357,7 @@
   #if DISABLED(DISABLE_HOST_KEEPALIVE)
     #define HOST_KEEPALIVE_FEATURE
   #endif
+  // we don't apply prevention of double-negatives
 
   /**
    * MAX_STEP_FREQUENCY differs for TOSHIBA
@@ -364,6 +367,7 @@
   #else
     #define MAX_STEP_FREQUENCY 40000 // Max step frequency for Ultimaker (5000 pps / half step)
   #endif
+  
 
   // MS1 MS2 Stepper Driver Microstepping mode table
   #define MICROSTEP1 LOW,LOW
@@ -371,7 +375,8 @@
   #define MICROSTEP4 LOW,HIGH
   #define MICROSTEP8 HIGH,HIGH
   #define MICROSTEP16 HIGH,HIGH
-
+  //set the mode table of microstepping
+  
   /**
    * Advance calculated values
    */
@@ -383,6 +388,7 @@
   #if ENABLED(ULTIPANEL) && DISABLED(ELB_FULL_GRAPHIC_CONTROLLER)
     #undef SD_DETECT_INVERTED
   #endif
+  // this calculated values are not used
 
   /**
    * Set defaults for missing (newer) options
@@ -430,7 +436,7 @@
   #elif TEMP_SENSOR_0 > 0
     #define THERMISTORHEATER_0 TEMP_SENSOR_0
     #define HEATER_0_USES_THERMISTOR
-  #endif
+  #endif// interpret type of temp sensor. for ours sensor temp_sensor_0 = 1
 
   #if TEMP_SENSOR_1 == -1
     #define HEATER_1_USES_AD595
@@ -470,7 +476,7 @@
   #elif TEMP_SENSOR_BED > 0
     #define THERMISTORBED TEMP_SENSOR_BED
     #define BED_USES_THERMISTOR
-  #endif
+  #endif// almost same thing as temp_sensor_0
 
   /**
    * ARRAY_BY_EXTRUDERS based on EXTRUDERS
@@ -483,7 +489,7 @@
     #define ARRAY_BY_EXTRUDERS(v1, v2, v3, v4) { v1, v2 }
   #else
     #define ARRAY_BY_EXTRUDERS(v1, v2, v3, v4) { v1 }
-  #endif
+  #endif// define the array of extruders
 
   #define ARRAY_BY_EXTRUDERS1(v1) ARRAY_BY_EXTRUDERS(v1, v1, v1, v1)
 
@@ -570,6 +576,7 @@
   #define HAS_E2_STEP (PIN_EXISTS(E2_STEP))
   #define HAS_E3_STEP (PIN_EXISTS(E3_STEP))
   #define HAS_E4_STEP (PIN_EXISTS(E4_STEP))
+  // a bulk of pin test, for juding if one pin is defined and used
 
   /**
    * Helper Macros for heaters and extruder fan
@@ -584,6 +591,8 @@
       #endif
     #endif
   #endif
+  // define macross for writing value (0,1) to heater
+  
   #if ENABLED(HEATERS_PARALLEL)
     #define WRITE_HEATER_0(v) { WRITE_HEATER_0P(v); WRITE_HEATER_1(v); }
   #else
@@ -635,11 +644,13 @@
       #define SERVO_ENDSTOP_IDS { X_ENDSTOP_SERVO_NR, Y_ENDSTOP_SERVO_NR, Z_ENDSTOP_SERVO_NR }
     #endif
   #endif
+  //thanksfully we don't use step motor
 
   #if ( (HAS_Z_MIN && ENABLED(Z_MIN_PROBE_USES_Z_MIN_ENDSTOP_PIN)) || HAS_Z_PROBE ) && \
     ( ENABLED(FIX_MOUNTED_PROBE) || defined(Z_ENDSTOP_SERVO_NR) || ENABLED(Z_PROBE_ALLEN_KEY) || ENABLED(Z_PROBE_SLED) )
     #define HAS_Z_MIN_PROBE
   #endif
+  //  we don't use probe
 
 #endif //CONFIGURATION_LCD
 #endif //CONDITIONALS_H
