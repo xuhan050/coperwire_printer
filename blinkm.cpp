@@ -42,5 +42,4 @@ void SendColors(byte red, byte grn, byte blu) {
   Wire.endTransmission();
 }
 
-#endif //BLINKM
-
+#endif // BLINKM

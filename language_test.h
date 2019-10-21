@@ -37,7 +37,7 @@
 // a.)For ASCII coded Language_xx.h files like (en) there are no occurrences of symbols above 0x7F so no mapper is needed.
 //   If such a symbol appears it is mapped directly into the font. This is the case for the language files we used until now, with all the STR_XX or
 //   "\xxx" symbols. All Symbols are only one byte long.
-// b.) For Unicoded Language_xx.h files (currently ru, de and kana_utf8 ) the non ASCII [0x00-0x7F] symbols are represented by more then one byte.
+// b.) For Unicoded Language_xx.h files (currently ru, de and kana_utf8 ) the non ASCII [0x00-0x7F] symbols are represented by more than one byte.
 //   In the case of two bytes the first is pointing to a 'codepage' and the second to a place in the codepage. These codepages contain 64 symbols.
 //   So two of them can be mapped. For most of the European languages the necessary symbols are contained in the pages C2 and C3. Cyrillic uses D0
 //   and D1.
@@ -46,18 +46,16 @@
 //   Kanji (an other Japanese symbol set) uses far more than two codepages. So currently I don't see a chance to map the Unicodes. Its not
 //   impossible to have a close to direct mapping but will need giant conversion tables and fonts (we don't want to have in a embedded system).
 
-
-#define MAPPER_NON         // For direct ascii codes ( until now all languages except ru, de, fi, kana_utf8, ... )
 //#define MAPPER_C2C3        // For most European languages when language file is in utf8
 //#define MAPPER_D0D1        // For Cyrillic
 //#define MAPPER_E382E383    // For Katakana
+//#define MAPPER_NON         // For direct ascii codes. Fall back mapper - if no other is defined.
 
-// Define SIMULATE_ROMFONT to see what is seen on the character based display defined in Configuration.h
-//#define SIMULATE_ROMFONT
 
 // Select the better font for full graphic displays.
 //#define DISPLAY_CHARSET_ISO10646_1
 //#define DISPLAY_CHARSET_ISO10646_5
+//#define DISPLAY_CHARSET_ISO10646_GREEK
 //#define DISPLAY_CHARSET_ISO10646_KANA
 
 
@@ -80,30 +78,30 @@
 
 #define STRG_C2_8 ""
 #define STRG_C2_9 ""
-#define STRG_C2_a " ¡¢£¤¥¦§¨©ª«¬­®¯"
-#define STRG_C2_b "°±²³´µ¶·¸¹º»¼½¾¿"
-#define STRG_C3_8 "ÈÁÂÃÄÅÆÇÈÉÊËÌÍÎÏ"
-#define STRG_C3_9 "ÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞß"
-#define STRG_C3_a "àáâãäåæçèéêëìíîï"
-#define STRG_C3_b "ðñòóôõö÷øùúûüýþÿ"
+#define STRG_C2_a "鑱介殕鍨勬嫝闄囨ゼ濞勬悅绡撴紡闄嬭姦鍗㈤搴愮倝"
+#define STRG_C2_b "鎺冲崵铏忛瞾楹撶闇茶矾璧傞箍娼炵褰曢檰鎴┐"
+#define STRG_C3_8 "鑴犺剷鑴楄剻鑴涜劀鑴濊劅鑴犺劇鑴㈣劊鑴よ劌鑴﹁劎"
+#define STRG_C3_9 "鑴ㄨ劑鑴劔鑴劗鑴拌劤鑴磋劦鑴疯劰鑴鸿劵鑴艰劷"
+#define STRG_C3_a "鑴胯癌鑺掕尗鐩叉皳蹇欒幗鐚寘閿氭瘺鐭涢搯鍗寕"
+#define STRG_C3_b "鍐掑附璨岃锤涔堢帿鏋氭閰堕湁鐓ゆ病鐪夊獟闀佹瘡"
 
-#define STRG_D0_8 "ЀЁЂЃЄЅІЇЈЉЊЋЌЍЎЏ"
-#define STRG_D0_9 "АБВГДЕЖЗИЙКЛМНОП"
-#define STRG_D0_a "РСТУФХЦЧШЩЪЫЬЭЮЯ"
-#define STRG_D0_b "абвгдежзийклмноп"
-#define STRG_D1_8 "рстуфхцчшщъыьэюя"
-#define STRG_D1_9 "ѐёђѓєѕіїјљњћќѝўџ"
-#define STRG_D1_a "ѠѡѢѣѤѥѦѧѨѩѪѫѬѭѮѯ"
-#define STRG_D1_b "ѰѱѲѳѴѵѶѷѸѹѺѻѼѽѾѿ"
+#define STRG_D0_8 "琛昏〖琚�琚冭琚囪琚婅琚庤琚愯琚撹琚�"
+#define STRG_D0_9 "琚楄琚欒琚涜琚炶琚犺ⅰ琚ｈⅴ琚﹁ⅶ琚ㄨⅸ"
+#define STRG_D0_a "琚皬瀛濇牎鑲栧暩绗戞晥妤斾簺姝囪潕闉嬪崗鎸熸惡"
+#define STRG_D0_b "閭枩鑳佽皭鍐欐鍗歌煿鎳堟硠娉昏阿灞戣柂鑺攲"
+#define STRG_D1_8 "瑜夎瑜岃瑜庤瑜戣瑜曡瑜楄瑜滆瑜炶"
+#define STRG_D1_9 "瑜犺あ瑜ｈい瑜﹁ぇ瑜ㄨぉ瑜き瑜く瑜辫げ瑜宠さ"
+#define STRG_D1_a "瑜烽�夌櫍鐪╃粴闈磋枦瀛︾┐闆鍕嬬啅寰棳璇�"
+#define STRG_D1_b "瀵婚┋宸℃畨姹涜璁�婅繀鍘嬫娂楦﹂腑鍛�涓娊"
 
-#define STRG_E382_8 "よめもゃやゅゆょよらりるれろゎわ"
-#define STRG_E382_9 "ゐゑをんゔゕゖ゗゘゙゚゛ ゜ゝゞゟ"
-#define STRG_E382_a "゠ァアィイゥウェエォオカガキギク"
-#define STRG_E382_b "グケゲコゴサザシジスズセゼソゾタ"
-#define STRG_E383_8 "トチヂッツヅテデトドナニヌネノハ"
-#define STRG_E383_9 "バパヒビピフブプヘベペホボポマミ"
-#define STRG_E383_a "ムメモャヤュユョヨラリルレロヮワ"
-#define STRG_E383_b "ヰヱヲンヴヵヶヷヸヹヺ・ーヽヾヿ"
+#define STRG_E382_8 "閵堝牄鍊庨妶鍌樺�戦妶鍕╁�曢妶鍡愬�楅妶鍫涘�濋妶濞垮�犻妶灞诲�ｉ妶搴涘��"
+#define STRG_E382_9 "閵堟劑鍊妶鎺嬪�遍妶鏂诲�抽妶鏍ュ�甸妶妯稿�烽妶姘ュ�� 閵堟嚎鍊介妶鐐亐"
+#define STRG_E382_a "閵堢姰鍋傞妶鈧亝閵堛們鍋夐妶锔哄亱閵堛劊鍋愰妶顏傚亽閵堫兙鍋旈妶顔哄仐"
+#define STRG_E382_b "閵堣埇鍋欓妶灞傚仢閵堟番鍋熼妶韬插仭閵堟悶鍋ｉ妶鎭掑仸閵堢鍋ㄩ妶淇卞仾"
+#define STRG_E383_8 "閵夊牄鍎婇妷鍌樺剭閵夊嫨鍎忛妷鍡愬剳閵夊牄鍎旈妷濞垮剸閵夊被鍎橀妷搴涘剼"
+#define STRG_E383_9 "閵夋劑鍎滈妷鎺嬪劄閵夋柣鍎犻妷鏍ュ劊閵夋ǜ鍎ラ妷姘ュ劎閵夋嚎鍎╅妷鐐劔"
+#define STRG_E383_a "閵夌姰鍎妷鈧劘閵夈們鍎遍妷锔哄劤閵夈劊鍎甸妷顏傚劮閵夘兙鍎归妷顔哄劵"
+#define STRG_E383_b "閵夎埇鍎介妷灞傚厒閵夋番鍏婇妷韬插厧閵夋悶鍏愰妷鎭掑厯閵夌鍏橀妷淇卞厸"
 
 #define STRG_OKTAL_0 "\000\001\002\003\004\005\006\007\010\011\012\013\014\015\016\017"
 #define STRG_OKTAL_1 "\020\021\022\023\024\025\026\027\030\031\032\033\034\035\036\037"
@@ -141,8 +139,8 @@
   #define MSG_DISABLE_STEPPERS                STRG_C2_8
   #define MSG_AUTO_HOME                       STRG_C2_9
   #define MSG_SET_HOME_OFFSETS                STRG_C2_a
-  #define MSG_PREHEAT_PLA                     STRG_C2_b
-  #define MSG_PREHEAT_ABS                     STRG_C3_8
+  #define MSG_PREHEAT_1                       STRG_C2_b
+  #define MSG_PREHEAT_2                       STRG_C3_8
   #define MSG_COOLDOWN                        STRG_C3_9
   #define MSG_SWITCH_PS_OFF                   STRG_C3_a
   #define MSG_MOVE_AXIS                       STRG_C3_b
@@ -150,7 +148,7 @@
   #define MSG_MAIN                            STRG_OKTAL_2
   #define MSG_TEMPERATURE                     STRG_OKTAL_3
   #define MSG_MOTION                          STRG_OKTAL_4
-  #define MSG_VOLUMETRIC                      STRG_OKTAL_5
+  #define MSG_FILAMENT                        STRG_OKTAL_5
   #define MSG_CONTRAST                        STRG_OKTAL_6
   #define MSG_RESTORE_FAILSAFE                STRG_OKTAL_7
 
@@ -176,8 +174,8 @@
   #define MSG_DISABLE_STEPPERS                STRG_D0_8
   #define MSG_AUTO_HOME                       STRG_D0_9
   #define MSG_SET_HOME_OFFSETS                STRG_D0_a
-  #define MSG_PREHEAT_PLA                     STRG_D0_b
-  #define MSG_PREHEAT_ABS                     STRG_D1_8
+  #define MSG_PREHEAT_1                       STRG_D0_b
+  #define MSG_PREHEAT_2                       STRG_D1_8
   #define MSG_COOLDOWN                        STRG_D1_9
   #define MSG_SWITCH_PS_OFF                   STRG_D1_a
   #define MSG_MOVE_AXIS                       STRG_D1_b
@@ -185,7 +183,7 @@
   #define MSG_MAIN                            STRG_OKTAL_2
   #define MSG_TEMPERATURE                     STRG_OKTAL_3
   #define MSG_MOTION                          STRG_OKTAL_4
-  #define MSG_VOLUMETRIC                      STRG_OKTAL_5
+  #define MSG_FILAMENT                        STRG_OKTAL_5
   #define MSG_CONTRAST                        STRG_OKTAL_6
   #define MSG_RESTORE_FAILSAFE                STRG_OKTAL_7
 
@@ -211,8 +209,8 @@
   #define MSG_DISABLE_STEPPERS                STRG_E382_8
   #define MSG_AUTO_HOME                       STRG_E382_9
   #define MSG_SET_HOME_OFFSETS                STRG_E382_a
-  #define MSG_PREHEAT_PLA                     STRG_E382_b
-  #define MSG_PREHEAT_ABS                     STRG_E383_8
+  #define MSG_PREHEAT_1                       STRG_E382_b
+  #define MSG_PREHEAT_2                       STRG_E383_8
   #define MSG_COOLDOWN                        STRG_E383_9
   #define MSG_SWITCH_PS_OFF                   STRG_E383_a
   #define MSG_MOVE_AXIS                       STRG_E383_b
@@ -220,7 +218,7 @@
   #define MSG_MAIN                            STRG_OKTAL_2
   #define MSG_TEMPERATURE                     STRG_OKTAL_3
   #define MSG_MOTION                          STRG_OKTAL_4
-  #define MSG_VOLUMETRIC                      STRG_OKTAL_5
+  #define MSG_FILAMENT                        STRG_OKTAL_5
   #define MSG_CONTRAST                        STRG_OKTAL_6
   #define MSG_RESTORE_FAILSAFE                STRG_OKTAL_7
 
