@@ -716,8 +716,14 @@ void Temperature::manage_heater() {
   updateTemperaturesFromRawValues(); // also resets the watchdog
 
   #if ENABLED(HEATER_0_USES_MAX6675)
+<<<<<<< HEAD
     if (current_temperature[0] > min(HEATER_0_MAXTEMP, MAX6675_TMAX - 1.0)) max_temp_error(0);
     if (current_temperature[0] < max(HEATER_0_MINTEMP, MAX6675_TMIN + .01)) min_temp_error(0);
+=======
+    float ct = current_temperature[0];
+    if (ct > min(HEATER_0_MAXTEMP, 1023)) max_temp_error(0);
+    if (ct < max(HEATER_0_MINTEMP, 0.01)) min_temp_error(0);
+>>>>>>> parent of 1defb0e... Add files via upload
   #endif
 
   #if WATCH_HOTENDS || WATCH_THE_BED || DISABLED(PIDTEMPBED) || HAS_AUTO_FAN || HEATER_IDLE_HANDLER
@@ -2043,7 +2049,29 @@ void Temperature::isr() {
     ZERO(raw_temp_value);
     raw_temp_bed_value = 0;
 
+<<<<<<< HEAD
     #define TEMPDIR(N) ((HEATER_##N##_RAW_LO_TEMP) > (HEATER_##N##_RAW_HI_TEMP) ? -1 : 1)
+=======
+    #if HAS_TEMP_0 && DISABLED(HEATER_0_USES_MAX6675)
+      #if HEATER_0_RAW_LO_TEMP > HEATER_0_RAW_HI_TEMP
+        #define GE0 <=
+      #else
+        #define GE0 >=
+      #endif
+      if (current_temperature_raw[0] GE0 maxttemp_raw[0]) max_temp_error(0);
+      if (minttemp_raw[0] GE0 current_temperature_raw[0]) min_temp_error(0);
+    #endif
+
+    #if HAS_TEMP_1 && EXTRUDERS > 1
+      #if HEATER_1_RAW_LO_TEMP > HEATER_1_RAW_HI_TEMP
+        #define GE1 <=
+      #else
+        #define GE1 >=
+      #endif
+      if (current_temperature_raw[1] GE1 maxttemp_raw[1]) max_temp_error(1);
+      if (minttemp_raw[1] GE1 current_temperature_raw[1]) min_temp_error(1);
+    #endif // TEMP_SENSOR_1
+>>>>>>> parent of 1defb0e... Add files via upload
 
     int constexpr temp_dir[] = {
       #if ENABLED(HEATER_0_USES_MAX6675)
@@ -2051,6 +2079,7 @@ void Temperature::isr() {
       #else
         TEMPDIR(0)
       #endif
+<<<<<<< HEAD
       #if HOTENDS > 1
         , TEMPDIR(1)
         #if HOTENDS > 2
@@ -2079,6 +2108,21 @@ void Temperature::isr() {
           consecutive_low_temperature_error[e] = 0;
       #endif
     }
+=======
+      if (current_temperature_raw[2] GE2 maxttemp_raw[2]) max_temp_error(2);
+      if (minttemp_raw[2] GE2 current_temperature_raw[2]) min_temp_error(2);
+    #endif // TEMP_SENSOR_2
+
+    #if HAS_TEMP_3 && EXTRUDERS > 3
+      #if HEATER_3_RAW_LO_TEMP > HEATER_3_RAW_HI_TEMP
+        #define GE3 <=
+      #else
+        #define GE3 >=
+      #endif
+      if (current_temperature_raw[3] GE3 maxttemp_raw[3]) max_temp_error(3);
+      if (minttemp_raw[3] GE3 current_temperature_raw[3]) min_temp_error(3);
+    #endif // TEMP_SENSOR_3
+>>>>>>> parent of 1defb0e... Add files via upload
 
     #if HAS_TEMP_BED
       #if HEATER_BED_RAW_LO_TEMP > HEATER_BED_RAW_HI_TEMP
