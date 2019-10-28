@@ -119,7 +119,7 @@
     #if ENABLED(DELTA)
       #define X_HOME_POS (X_MIN_POS + (X_BED_SIZE) * 0.5)
     #else
-      #define X_HOME_POS (X_HOME_DIR < 0 ? X_MIN_POS : X_MAX_POS)
+      #define X_HOME_POS (X_HOME_DIR < 0 ? X_MIN_POS : X_MAX_POS) //this is our option
     #endif
   #endif
 

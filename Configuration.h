@@ -134,7 +134,7 @@
 // This defines the number of extruders
 // :[1, 2, 3, 4, 5]
 #define EXTRUDERS 2
-//HANXU: one for E-rotation, the other one for extruding.
+//HANXU: one for H-rotation, the other one for extruding.
 
 // For Cyclops or any "multi-extruder" that shares a single nozzle.
 //#define SINGLENOZZLE
@@ -786,7 +786,7 @@
 // Travel limits (mm) after homing, corresponding to endstop positions.
 #define X_MIN_POS 0
 #define Y_MIN_POS 0
-#define Z_MIN_POS 190 //HANXU: syring 190, laser 196
+#define Z_MIN_POS 192.5 //HANXU: syring 190, laser 196
 #define X_MAX_POS X_BED_SIZE
 #define Y_MAX_POS Y_BED_SIZE
 #define Z_MAX_POS 200
